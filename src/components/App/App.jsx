@@ -47,16 +47,38 @@ const addItem = (event) => {
             console.log('successful post:', response);
             fetchList();
             setItemName('');
-            setQuanity('');
+            setQuantity('');
             setUnit('');
         })
         .catch((error) => {
             console.log('post failed:', error);
         })
     }
+    
+const deleteItem = (id) => {
+    axios.delete(`/api/shopping_list/${id}`)
+    .then((response) => {
+        console.log('deleting item worked:', response);
+        fetchList();
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+}
 
+const toggleItem = (id) => {
+    console.log('toggle action', id);
 
-
+    axios.put(`/api/shopping_list/toggle/${id}`)
+    .then((response) => {
+        console.log('toggle action worked:', response);
+        fetchList();
+    })
+    .catch (function (error) {
+        console.log(error);
+    })
+}
+//  NEED TO ASSIGN VALUE BOOLEAN TO CONNECT DATABAASE AND URL
 
 
 
@@ -67,13 +89,15 @@ const addItem = (event) => {
             <h1>Add an Item</h1> 
             <form onSubmit={addItem}>
             <label htmlFor="item">Item</label>
-                <input id="item" onChange={(event) => setItemName(event.target.value)} value={setItemName} />
+                <input id="item" onChange={(event) => setItemName(event.target.value)} value={itemName} />
                 <label htmlFor="quantity">Quantity</label>
-                <input id="item" onChange={(event) => setQuantity(event.target.value)} value={setQuantity} />
+                <input id="quantity" onChange={(event) => setQuantity(event.target.value)} value={itemQuantity} />
                 <label htmlFor="unit">Unit</label>
-                <input id="item" onChange={(event) => setUnit(event.target.value)} value={setUnit} />
+                <input id="unit" onChange={(event) => setUnit(event.target.value)} value={itemUnit} />
                 <button type="submit">Add new item</button>
             </form>
+            <h2>Shopping Cart</h2>
+            {listArray.map((item) => { return (<li key={item.name}>{item.name} {item.unit} {item.quantity} <button onClick={() => deleteItem(item.id)}>Remove</button> <button onClick={() => toggleItem(item.id)}>Buy</button> </li>); })}
             </main>
         </div>
     );
