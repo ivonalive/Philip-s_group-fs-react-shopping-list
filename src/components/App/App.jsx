@@ -1,8 +1,17 @@
-import React from 'react';
-import axios from 'axios';
-import Header from '../Header/Header.jsx'
-import './App.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import './App.css';
+import Header from '../Header/Header.jsx'
+
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoneIcon from '@mui/icons-material/Done';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 
 function App() {
@@ -134,8 +143,8 @@ const clearItem = () => {
                             ) : (
                                 // item.purchased => If it's false, "Remove" & "Buy" button will generate on screen
                                 <>
-                                    <button onClick={() => deleteItem(item.id)}>Remove</button>
-                                    <button onClick={() => toggleItem(item.id)}>Buy</button>
+                                    <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => deleteItem(item.id)}>Remove</Button>
+                                    <Button variant="contained" color="success" startIcon={<DoneIcon />} onClick={() => toggleItem(item.id)}>Buy</Button>
                                 </>
                             )}
                             </li>
@@ -151,6 +160,7 @@ const clearItem = () => {
                                 <>
                                     <button onClick={() => deleteItem(item.id)}>Remove</button>
                                     <button onClick={() => toggleItem(item.id)}>Buy</button>
+                                    
                                 </>
                             )}
                             </li>
