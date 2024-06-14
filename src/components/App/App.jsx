@@ -3,7 +3,15 @@ import axios from 'axios';
 import Header from '../Header/Header.jsx'
 import './App.css';
 import { useEffect, useState } from 'react';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
+import Button from '@mui/material/Button';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Stack from '@mui/material/Stack';
 
 function App() {
 
@@ -122,13 +130,21 @@ const clearItem = () => {
                 <input id="unit" onChange={(event) => setUnit(event.target.value)} value={itemUnit} />
                 <button type="submit">Add new item</button>
             </form>
-            <button onClick={() => resetItem()}>Reset</button>
+            
+        <Stack direction="row" spacing={2}>
+        <Button onClick={() => resetItem()} variant="contained" startIcon={<AutorenewIcon />}>
+            Reset Purchases
+        </Button>
+        <Button onClick={() => clearItem()} variant="contained" startIcon={<DeleteIcon />}>
+        Clear Shopping Cart
+        </Button>
+        </Stack>
+            
 
-            <button onClick={() => clearItem()}>Clear</button>         
             <h2>Shopping Cart</h2>
             {listArray.filter(item => item.purchased=== false).map((item) => {
                         return (
-                            <li key={item.name}>{item.name} {item.unit} {item.quantity} {item.purchased ? (
+                            <li key={item.name} className="cart-items">{item.name} {item.unit} {item.quantity} {item.purchased ? (
                                 // item.purchased => If it's true, "Purchased" text will generate on screen
                                 <span> - Purchased</span>
                             ) : (
@@ -143,7 +159,7 @@ const clearItem = () => {
                     })}
                     {listArray.filter(item => item.purchased=== true).map((item) => {
                         return (
-                            <li key={item.name}>{item.name} {item.unit} {item.quantity} {item.purchased ? (
+                            <li key={item.name} className="cart-items">{item.name} {item.unit} {item.quantity} {item.purchased ? (
                                 // item.purchased => If it's true, "Purchased" text will generate on screen
                                 <span> - Purchased</span>
                             ) : (
